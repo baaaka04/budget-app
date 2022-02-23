@@ -16,14 +16,13 @@ app.use(function(_, res, next) {
 
 app.use(express.json())
 
-app.get('/ripen/bruh.csv', (_, res) => {
+app.get('/bruh.csv', (_, res) => {
   const file = fs.readFileSync('data/bruh.csv', {encoding:'utf-8'})
   res.send(file)
 })
 
-app.post('/ripen/new', (req, res) => {
+app.post('/new', (req, res) => {
   const body = req.body
-  console.log(body)
   let sign = ''
   
   if (body.io !== 'доход' ) {
@@ -39,7 +38,7 @@ app.post('/ripen/new', (req, res) => {
   res.status(200).end()
 })
 
-app.use('/ripen', express.static('dist'))
+app.use(express.static('dist'))
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
