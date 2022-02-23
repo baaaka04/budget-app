@@ -1,23 +1,16 @@
 <script>
     import SumInput from "./SumInput.svelte";
 
-    const actionURL = import.meta.env.DEV ? "http://localhost:5040/ripen/new" : "new";
+    const actionURL = import.meta.env.DEV ? "http://localhost:5040/new" : "new";
 
-    // method="post"
-    // action={actionURL}
 
     function onSubmit(e) {
         const formData = new FormData(e.target);
-
-        console.log(formData)
-
         const data = {};
         for (let field of formData) {
             const [key, value] = field;
             data[key] = value;
         }
-
-        console.log('pipa', data)
 
         fetch(actionURL, {
             method: 'post',
@@ -117,11 +110,7 @@
     }
 
     .text-view {
-        /* color: grey; */
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* .hidden {
-        display: none;
-    } */
 </style>
