@@ -5,7 +5,7 @@
 
     const csvURL = 
         import.meta.env.DEV
-          ? 'http://localhost:5040/ripen/bruh.csv'
+          ? `http://${window.location.hostname}:5040/bruh.csv`
           : 'bruh.csv';
 
     onMount(() => {
