@@ -1,7 +1,7 @@
 <script>
     import SumInput from "./SumInput.svelte";
 
-    const actionURL = import.meta.env.DEV ? "http://localhost:5040/new" : "new";
+    const actionURL = import.meta.env.DEV ? "http://localhost:5040/ripen/new" : "new";
 
     // method="post"
     // action={actionURL}
@@ -21,10 +21,13 @@
 
         fetch(actionURL, {
             method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
-        .then(res => {
-            console.log(res)
+        .then(() => {
+          document.location.reload()
         })
 
     }

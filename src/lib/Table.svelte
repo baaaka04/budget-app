@@ -5,14 +5,14 @@
 
     const csvURL = 
         import.meta.env.DEV
-        ? 'http://localhost:5040/bruh.csv'
-        : 'bruh.csv'
+          ? 'http://localhost:5040/ripen/bruh.csv'
+          : 'bruh.csv';
 
     onMount(() => {
         fetch(csvURL)
             .then((res) => res.text())
             .then((csv) => {
-                const trs = csv.split("\n");
+                const trs = csv.trim().split("\n");
                 transactions = trs
                     .slice(trs.length - 5)
                     .map((line) => line.split(","))

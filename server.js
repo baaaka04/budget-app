@@ -1,30 +1,27 @@
 import express from 'express'
 import fs from "fs"
-import bodyParser from 'body-parser'
-import cors from 'cors'
-
 
 const app = express()
 const port = 5040
 
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json())
+app.use(function(_, res, next) {
+  if (process.env.NODE_ENV === 'development') {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header('Access-Control-Allow-Methods', 'GET, POST');
+  }
+
+  next();
+});
+
 app.use(express.json())
-app.use(cors({credentials: true, origin: "*"}))
 
-app.get('/bruh.csv', (_, res) => {
-  // res.setHeader('Access-Control-Allow-Origin', '*');
-  // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
-
+app.get('/ripen/bruh.csv', (_, res) => {
   const file = fs.readFileSync('data/bruh.csv', {encoding:'utf-8'})
   res.send(file)
 })
 
-app.post('/new', (req, res) => {
-  // res.setHeader('Access-Control-Allow-Origin', '*');
-  // res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
-  // res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-
+app.post('/ripen/new', (req, res) => {
   const body = req.body
   console.log(body)
   let sign = ''
@@ -36,19 +33,13 @@ app.post('/new', (req, res) => {
   // проверка нужна чтобы не было ошибки
   const subCategory = (body.subCategory || '').toLowerCase()
   
-  const newLine = `\n${body.category},${subCategory},${body.io},${body.date},${sign}${body.sum}`
+  const newLine = `${body.category},${subCategory},${body.io},${body.date},${sign}${body.sum}\n`
   fs.appendFileSync('data/bruh.csv', newLine, {encoding:'utf-8'})
-  // console.log(req.body)
 
-  // res.send('ok')
   res.status(200).end()
-  // res.redirect('./')
 })
 
-
-app.use(express.static('dist'))
-
-
+app.use('/ripen', express.static('dist'))
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
