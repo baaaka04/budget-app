@@ -28,7 +28,7 @@
 
 <form class="main-form" on:submit|preventDefault={onSubmit}>
     <div>
-        <label class="text-view">Вид расхода</label>
+        <label for="category" class="text-view">Вид расхода</label>
         <br />
         <select class="input-field" name="category">
             <option>питание</option>
@@ -48,12 +48,12 @@
     </div>
 
     <div>
-        <label class="text-view">Наименование</label>
+        <label for="subCategory" class="text-view">Наименование</label>
         <input class="input-field" name="subCategory" type="text" />
     </div>
 
     <div>
-        <label class="text-view">расход/доход</label>
+        <label for="io" class="text-view">расход/доход</label>
 
         <div>
             <input type="radio" id="huey" name="io" value="опер" checked />
