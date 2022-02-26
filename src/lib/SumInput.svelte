@@ -1,6 +1,6 @@
 <script>
     let areButtonsVisible = false;
-    let sum = "";
+    let inputValue = "";
     let calc = "";
     let action = "";
 
@@ -8,30 +8,35 @@
         areButtonsVisible = !areButtonsVisible;
     }
 
-    function onPressOperation() {
-        calc = sum;
-        sum = "";
-        action = this.innerHTML;
+    function onPressC() {
+        calc = "";
+        action = "";
+        inputValue = "";
     }
 
-    function onPressEquals() {
-        switch (action) {
-            case "+":
-                sum += calc;
-                break;
-            case "-":
-                sum = String(Number(calc) - Number(sum));
-                break;
-            case "/":
-                sum = String(Number(calc) / Number(sum));
-                break;
-            case "*":
-                sum = String(Number(calc) * Number(sum));
-                break;
+    function onPressOperation(event) {
+        let preAction = action;
+        action = event.target.innerHTML;
+        if (calc !== "") {
+            switch (preAction) {
+                case "+":
+                    inputValue = String(Number(calc) + Number(inputValue));
+                    break;
+                case "-":
+                    inputValue = String(Number(calc) - Number(inputValue));
+                    break;
+                case "/":
+                    inputValue = String(Number(calc) / Number(inputValue));
+                    break;
+                case "*":
+                    inputValue = String(Number(calc) * Number(inputValue));
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
+        calc = inputValue;
     }
 </script>
 
@@ -42,19 +47,20 @@
             <button type="button" on:click={onPressOperation}>-</button>
             <button type="button" on:click={onPressOperation}>/</button>
             <button type="button" on:click={onPressOperation}>*</button>
-            <button type="button" on:click={onPressEquals}>=</button>
+            <button type="button" on:click={onPressOperation}>=</button>
+            <button type="button" on:click={onPressC}>C</button>
         </div>
     {/if}
 
-    <label class="text-view">Сумма</label>
+    <label for="inputValue" class="text-view">Сумма</label>
 
     <input
         class="input-field"
-        name="sum"
+        name="inputValue"
         type="number"
         pattern="\d*"
         id="calc-source"
-        bind:value={sum}
+        bind:value={inputValue}
     />
 
     <button type="button" on:click={hideButtons}>Calc</button>
