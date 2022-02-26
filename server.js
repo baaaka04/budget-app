@@ -32,7 +32,7 @@ app.post('/new', (req, res) => {
   // проверка нужна чтобы не было ошибки
   const subCategory = (body.subCategory || '').toLowerCase()
   
-  const newLine = `${body.category},${subCategory},${body.io},${body.date},${sign}${body.sum}\n`
+  const newLine = `${body.category},${subCategory},${body.io},${body.date},${sign}${body.inputValue}\n`
   fs.appendFileSync('data/bruh.csv', newLine, {encoding:'utf-8'})
 
   res.status(200).end()
