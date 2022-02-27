@@ -65,3 +65,13 @@
 
     <button type="button" on:click={hideButtons}>Calc</button>
 </div>
+
+<style>
+    .input-field {
+        font-size: 20px;
+        height: 30px;
+        width: 150px;
+        color: rgb(68, 67, 67);
+        background-color: rgb(165, 163, 163);
+    }
+</style>
