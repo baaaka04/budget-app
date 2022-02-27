@@ -24,13 +24,39 @@
         })
 
     }
+
+    let categoryValue = 'питание';
+    let subCategoryValue = '';
+    let invest = 'опер';
+    function onPressHealthy() {
+        categoryValue = 'питание';
+        subCategoryValue = 'здоровая пища';
+        invest = 'опер';
+    }
+    function onPressCarsharing() {
+        categoryValue = 'транспорт';
+        subCategoryValue = 'каршеринг';
+        invest = 'опер';
+    }
+    function onPressIncome() {
+        categoryValue = 'доход';
+        subCategoryValue = 'зарплата';
+        invest = 'доход';
+    }
+
 </script>
 
 <form class="main-form" on:submit|preventDefault={onSubmit}>
+    <div>         
+        <button class="hotkey-button" on:click={onPressHealthy}>Здоровая пища</button>
+        <button class="hotkey-button" on:click={onPressCarsharing}>Каршеринг</button>
+        <button class="hotkey-button" on:click={onPressIncome}>Зарплата</button>
+    </div>
+    
     <div>
         <label for="category" class="text-view">Вид расхода</label>
         <br />
-        <select class="input-field" name="category">
+        <select class="input-field" name="category" bind:value={categoryValue}>
             <option>питание</option>
             <option>транспорт</option>
             <option>здоровье</option>
@@ -49,20 +75,20 @@
 
     <div>
         <label for="subCategory" class="text-view">Наименование</label>
-        <input class="input-field" name="subCategory" type="text" />
+        <input class="input-field" name="subCategory" type="text" bind:value={subCategoryValue}/>
     </div>
 
     <div>
         <label for="io" class="text-view">расход/доход</label>
 
         <div>
-            <input type="radio" id="huey" name="io" value="опер" checked />
+            <input type="radio" id="huey" name="io" value="опер" bind:group={invest} checked />
             <label class="text-view" for="huey">опер</label>
 
-            <input type="radio" id="dewey" name="io" value="доход" />
+            <input type="radio" id="dewey" name="io" value="доход" bind:group={invest}/>
             <label class="text-view" for="dewey">доход</label>
 
-            <input type="radio" id="louie" name="io" value="инвест" />
+            <input type="radio" id="louie" name="io" value="инвест" bind:group={invest}/>
             <label class="text-view" for="louie">инвест</label>
         </div>
     </div>
@@ -111,6 +137,15 @@
 
     .text-view {
         font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hotkey-button {
+        height: 30px;
+        width: 65px;
+        font-size: 10px;
+        color: white;
+        background-color: grey;
+        border-radius: 5px;
     }
 
 </style>
