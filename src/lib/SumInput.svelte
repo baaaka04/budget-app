@@ -43,18 +43,17 @@
 <div>
     {#if areButtonsVisible}
         <div class="hidden">
-            <button type="button" on:click={onPressOperation}>+</button>
-            <button type="button" on:click={onPressOperation}>-</button>
-            <button type="button" on:click={onPressOperation}>/</button>
-            <button type="button" on:click={onPressOperation}>*</button>
-            <button type="button" on:click={onPressOperation}>=</button>
-            <button type="button" on:click={onPressC}>C</button>
+            <button type="button" class="calc-button" on:click={onPressOperation}>+</button>
+            <button type="button" class="calc-button" on:click={onPressOperation}>-</button>
+            <button type="button" class="calc-button" on:click={onPressOperation}>/</button>
+            <button type="button" class="calc-button" on:click={onPressOperation}>*</button>
+            <button type="button" class="calc-button" on:click={onPressOperation}>=</button>
+            <button type="button" class="calc-button" on:click={onPressC}>C</button>
         </div>
     {/if}
 
-    <label for="inputValue" class="text-view">Сумма</label>
-
     <input
+        placeholder="cумма"
         class="input-field"
         name="inputValue"
         type="number"
@@ -63,15 +62,31 @@
         bind:value={inputValue}
     />
 
-    <button type="button" on:click={hideButtons}>Calc</button>
+    <button type="button" class="calc-button" on:click={hideButtons}>[ ]</button>
 </div>
 
 <style>
     .input-field {
+        margin: 4px;
         font-size: 20px;
         height: 30px;
-        width: 150px;
+        width: 250px;
         color: rgb(68, 67, 67);
         background-color: rgb(165, 163, 163);
+    }
+    ::placeholder {
+        color: rgb(216, 216, 216);
+        font-size: 1em;
+        text-align: center;
+}
+    .calc-button {
+        padding: 0;
+        margin: 4px;
+        height: 40px;
+        width: 40px;
+        color:rgb(216, 216, 216);
+        font-size: 0.7em;
+        background-color: grey;
+        border-radius: 5px;
     }
 </style>
