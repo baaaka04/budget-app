@@ -47,15 +47,8 @@
 </script>
 
 <form class="main-form" on:submit|preventDefault={onSubmit}>
-    <div>         
-        <button class="hotkey-button" on:click={onPressHealthy}>Здоровая пища</button>
-        <button class="hotkey-button" on:click={onPressCarsharing}>Каршеринг</button>
-        <button class="hotkey-button" on:click={onPressIncome}>Зарплата</button>
-    </div>
-    
+  
     <div>
-        <label for="category" class="text-view">Вид расхода</label>
-        <br />
         <select class="input-field" name="category" bind:value={categoryValue}>
             <option>питание</option>
             <option>транспорт</option>
@@ -74,14 +67,10 @@
     </div>
 
     <div>
-        <label for="subCategory" class="text-view">Наименование</label>
-        <input class="input-field" name="subCategory" type="text" bind:value={subCategoryValue}/>
+        <input placeholder="наименование" class="input-field" name="subCategory" type="text" bind:value={subCategoryValue}/>
     </div>
 
     <div>
-        <label for="io" class="text-view">расход/доход</label>
-
-        <div>
             <input type="radio" id="huey" name="io" value="опер" bind:group={invest} checked />
             <label class="text-view" for="huey">опер</label>
 
@@ -90,12 +79,9 @@
 
             <input type="radio" id="louie" name="io" value="инвест" bind:group={invest}/>
             <label class="text-view" for="louie">инвест</label>
-        </div>
     </div>
 
     <div>
-        <label class="text-view" for="date">Дата</label>
-
         <input
             class="input-field"
             name="date"
@@ -105,6 +91,12 @@
     </div>
 
     <SumInput />
+
+    <div>         
+        <button class="hotkey-button" on:click={onPressHealthy}>Здоровая пища</button>
+        <button class="hotkey-button" on:click={onPressCarsharing}>Каршеринг</button>
+        <button class="hotkey-button" on:click={onPressIncome}>Зарплата</button>
+    </div>
 
     <div class="horizontalgap" style="width:10px" />
 
@@ -120,17 +112,19 @@
     }
 
     .save-button {
+        margin: 4px;
         height: 100px;
         width: 150px;
         font-size: 20px;
         background-color: grey;
-        border-radius: 18px;
+        border-radius: 30px;
     }
 
     .input-field {
+        margin-top: 8px;
         font-size: 20px;
         height: 30px;
-        width: 200px;
+        width: 300px;
         color: rgb(68, 67, 67);
         background-color: rgb(165, 163, 163);
     }
@@ -140,12 +134,20 @@
     }
 
     .hotkey-button {
+        padding: 0;
         height: 30px;
         width: 65px;
         font-size: 10px;
-        color: white;
+        color: rgb(216, 216, 216);
         background-color: grey;
         border-radius: 5px;
+        vertical-align: middle;
     }
+
+    ::placeholder {
+        color: rgb(216, 216, 216);
+        font-size: 1em;
+        text-align: center;
+}
 
 </style>
