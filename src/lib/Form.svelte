@@ -44,6 +44,18 @@
         invest = 'доход';
     }
 
+    function onPressDelete(e) {
+        e.preventDefault()
+
+        const actionURL = import.meta.env.DEV ? "http://localhost:5040/deleteLastRow" : "deleteLastRow";
+        fetch(actionURL, {
+            method: 'delete'
+        })
+        .then(() => {
+            document.location.reload()
+        })
+    }
+
 </script>
 
 <form class="main-form" on:submit|preventDefault={onSubmit}>
@@ -101,6 +113,8 @@
     <div class="horizontalgap" style="width:10px" />
 
     <button class="save-button" type="submit">Сохранить</button>
+
+    <button class="save-button" on:click={onPressDelete}>Удалить</button>
 </form>
 
 <style>
