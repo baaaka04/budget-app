@@ -42,7 +42,7 @@
 
 <div>
     {#if areButtonsVisible}
-        <div class="hidden">
+        <div>
             <button type="button" class="calc-button" on:click={onPressOperation}>+</button>
             <button type="button" class="calc-button" on:click={onPressOperation}>-</button>
             <button type="button" class="calc-button" on:click={onPressOperation}>/</button>
