@@ -64,8 +64,9 @@
     .table-appearance,
     th,
     td {
-        border: 1px dotted gray;
+        border: 1px solid rgb(209, 209, 196);
         color: gray;
         border-spacing: 0px;
+        border-collapse: collapse;
     }
 </style>

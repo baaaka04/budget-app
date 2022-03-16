@@ -42,7 +42,7 @@
 
 <div>
     {#if areButtonsVisible}
-        <div class="hidden">
+        <div>
             <button type="button" class="calc-button" on:click={onPressOperation}>+</button>
             <button type="button" class="calc-button" on:click={onPressOperation}>-</button>
             <button type="button" class="calc-button" on:click={onPressOperation}>/</button>
@@ -69,7 +69,7 @@
     .input-field {
         margin: 4px;
         font-size: 20px;
-        height: 30px;
+        height: 25px;
         width: 250px;
         color: rgb(68, 67, 67);
         background-color: rgb(165, 163, 163);

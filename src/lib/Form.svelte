@@ -82,15 +82,17 @@
         <input placeholder="наименование" class="input-field" name="subCategory" type="text" bind:value={subCategoryValue}/>
     </div>
 
-    <div>
+    <div class="center">
+        <tr>
             <input type="radio" id="huey" name="io" value="опер" bind:group={invest} checked />
-            <label class="text-view" for="huey">опер</label>
+            <td><label class="text-view" for="huey">опер</label></td>
 
             <input type="radio" id="dewey" name="io" value="доход" bind:group={invest}/>
-            <label class="text-view" for="dewey">доход</label>
+            <td><label class="text-view" for="dewey">доход</label></td>
 
             <input type="radio" id="louie" name="io" value="инвест" bind:group={invest}/>
-            <label class="text-view" for="louie">инвест</label>
+            <td><label class="text-view" for="louie">инвест</label></td>
+        </tr>
     </div>
 
     <div>
@@ -110,14 +112,32 @@
         <button class="hotkey-button" on:click={onPressIncome}>Зарплата</button>
     </div>
 
-    <div class="horizontalgap" style="width:10px" />
-
     <button class="save-button" type="submit">Сохранить</button>
 
-    <button class="save-button" on:click={onPressDelete}>Удалить</button>
+    <button class="delete-button" on:click={onPressDelete}>Удалить</button>
 </form>
 
 <style>
+    .center {
+        width: 85%;
+        margin: 0 auto;
+    }
+    td {
+        border: 1px solid rgb(209, 209, 196);
+        border-radius: 10px;
+        height: 30px;
+        width: 80px;
+        color: gray;
+    }
+    input[type="radio"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+    input[type="radio"]:checked + td {
+        background-color: grey;
+        color:rgb(216, 216, 216);
+    }
     .main-form {
         max-width: 350px;
         margin: 0 auto;
@@ -130,31 +150,46 @@
         height: 100px;
         width: 150px;
         font-size: 20px;
-        background-color: grey;
+        font-weight: bold;
+        color: rgb(216, 216, 216);
+        background-color: rgba(54, 78, 55);
+        border-radius: 30px;
+    }
+    .delete-button {
+        margin: 4px;
+        height: 100px;
+        width: 150px;
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(216, 216, 216);
+        background-color: rgb(107, 77, 74);
         border-radius: 30px;
     }
 
     .input-field {
+        margin: 4px;
         margin-top: 8px;
         font-size: 20px;
-        height: 30px;
+        height: 25px;
         width: 300px;
+        text-align: center;
         color: rgb(68, 67, 67);
         background-color: rgb(165, 163, 163);
     }
 
     .text-view {
+        font-size: 20px;
         font-family: Arial, Helvetica, sans-serif;
     }
 
     .hotkey-button {
         padding: 0;
         height: 30px;
-        width: 65px;
+        width: 100px;
         font-size: 10px;
         color: rgb(216, 216, 216);
         background-color: grey;
-        border-radius: 5px;
+        border-radius: 10px;
         vertical-align: middle;
     }
 
