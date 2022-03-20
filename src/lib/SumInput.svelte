@@ -3,16 +3,20 @@
     let inputValue = "";
     let calc = "";
     let action = "";
+    let inputRef;
 
     function hideButtons() {
         areButtonsVisible = !areButtonsVisible;
+        inputRef.focus();
     }
 
     function onPressC() {
         calc = "";
         action = "";
         inputValue = "";
+        inputRef.focus();
     }
+
 
     function onPressOperation(event) {
         let preAction = action;
@@ -36,6 +40,8 @@
                     break;
             }
         }
+        inputRef.select();
+        inputRef.focus();
         calc = inputValue;
     }
 </script>
@@ -60,6 +66,7 @@
         pattern="\d*"
         id="calc-source"
         bind:value={inputValue}
+        bind:this={inputRef}
     />
 
     <button type="button" class="calc-button" on:click={hideButtons}>[ ]</button>
