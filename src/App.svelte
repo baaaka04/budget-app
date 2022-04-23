@@ -1,6 +1,8 @@
 <script>
     import Table from "./lib/Table.svelte";
     import Form from "./lib/Form.svelte";
+    import imgHome from "./icons/home.svg";
+    import imgPiechart from "./icons/piechart.svg";
 
     let page = "home";
 </script>
@@ -15,14 +17,14 @@
 
     <div class="nav-panel">
         <img
-            src="src/icons/home.svg"
+            src={imgHome}
             alt=""
             on:click={() => {
                 page = "home";
             }}
         />
         <img
-            src="src/icons/piechart.svg"
+            src={imgPiechart}
             alt=""
             on:click={() => {
                 page = "pie";
