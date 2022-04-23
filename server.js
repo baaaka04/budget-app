@@ -2,7 +2,7 @@ import express from 'express'
 import fs from "fs"
 
 const app = express()
-const port = 5040
+const port = 50401
 
 app.use(function (_, res, next) {
   if (process.env.NODE_ENV === 'development') {
@@ -53,7 +53,9 @@ app.delete('/deleteLastRow', (_, res) => {
 
 app.use(express.static('dist'))
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0',
+  () => {
   console.log(`Example app listening at http://localhost:${port}`)
-})
+}
+)
 
