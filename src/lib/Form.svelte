@@ -1,8 +1,35 @@
 <script>
     import SumInput from "./SumInput.svelte";
+    import { onMount } from "svelte";
 
     const actionURL = import.meta.env.DEV ? "http://localhost:5040/new" : "new";
 
+    const csvURL = import.meta.env.DEV
+        ? `http://${window.location.hostname}:3000/bruh.csv`
+        : "bruh.csv";
+
+    const counts = {};
+    let oftentrs = [];
+
+    onMount(() => {
+        fetch(csvURL)
+            .then((res) => res.text())
+            .then((csv) => {
+                const trs = csv.trim().split("\n");
+                let transactions = trs
+                    .slice(trs.length - 200)
+                    .map((item) => item.split(",").slice(0, 3).toString());
+                for (const num of transactions) {
+                    counts[num] = counts[num] ? counts[num] + 1 : 1;
+                }
+                let sortedtrs = Object.entries(counts)
+                    .sort(([, a], [, b]) => b - a)
+                    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+                oftentrs = Object.keys(sortedtrs)
+                    .slice(0, 6)
+                    .map((i) => i.split(","));
+            });
+    });
 
     function onSubmit(e) {
         const formData = new FormData(e.target);
@@ -13,53 +40,41 @@
         }
 
         fetch(actionURL, {
-            method: 'post',
+            method: "post",
             headers: {
-              'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
-        })
-        .then(() => {
-          document.location.reload()
-        })
-
+            body: JSON.stringify(data),
+        }).then(() => {
+            document.location.reload();
+        });
     }
 
-    let categoryValue = 'питание';
-    let subCategoryValue = '';
-    let invest = 'опер';
-    function onPressHealthy() {
-        categoryValue = 'питание';
-        subCategoryValue = 'здоровая пища';
-        invest = 'опер';
-    }
-    function onPressCarsharing() {
-        categoryValue = 'транспорт';
-        subCategoryValue = 'каршеринг';
-        invest = 'опер';
-    }
-    function onPressIncome() {
-        categoryValue = 'доход';
-        subCategoryValue = 'зарплата';
-        invest = 'доход';
+    let categoryValue = "питание";
+    let subCategoryValue = "";
+    let invest = "опер";
+
+    function onPressHotkey(hotkey) {
+        categoryValue = hotkey[0];
+        subCategoryValue = hotkey[1];
+        invest = hotkey[2];
     }
 
     function onPressDelete(e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const actionURL = import.meta.env.DEV ? "http://localhost:5040/deleteLastRow" : "deleteLastRow";
+        const actionURL = import.meta.env.DEV
+            ? "http://localhost:5040/deleteLastRow"
+            : "deleteLastRow";
         fetch(actionURL, {
-            method: 'delete'
-        })
-        .then(() => {
-            document.location.reload()
-        })
+            method: "delete",
+        }).then(() => {
+            document.location.reload();
+        });
     }
-
 </script>
 
 <form class="main-form" on:submit|preventDefault={onSubmit}>
-  
     <div>
         <select class="input-field" name="category" bind:value={categoryValue}>
             <option>питание</option>
@@ -79,18 +94,43 @@
     </div>
 
     <div>
-        <input placeholder="наименование" class="input-field" name="subCategory" type="text" bind:value={subCategoryValue}/>
+        <input
+            placeholder="наименование"
+            class="input-field"
+            name="subCategory"
+            type="text"
+            bind:value={subCategoryValue}
+        />
     </div>
 
     <div class="center">
         <tr>
-            <input type="radio" id="huey" name="io" value="опер" bind:group={invest} checked />
+            <input
+                type="radio"
+                id="huey"
+                name="io"
+                value="опер"
+                bind:group={invest}
+                checked
+            />
             <td><label class="text-view" for="huey">опер</label></td>
 
-            <input type="radio" id="dewey" name="io" value="доход" bind:group={invest}/>
+            <input
+                type="radio"
+                id="dewey"
+                name="io"
+                value="доход"
+                bind:group={invest}
+            />
             <td><label class="text-view" for="dewey">доход</label></td>
 
-            <input type="radio" id="louie" name="io" value="инвест" bind:group={invest}/>
+            <input
+                type="radio"
+                id="louie"
+                name="io"
+                value="инвест"
+                bind:group={invest}
+            />
             <td><label class="text-view" for="louie">инвест</label></td>
         </tr>
     </div>
@@ -106,10 +146,12 @@
 
     <SumInput />
 
-    <div>         
-        <button class="hotkey-button" on:click={onPressHealthy}>Здоровая пища</button>
-        <button class="hotkey-button" on:click={onPressCarsharing}>Каршеринг</button>
-        <button class="hotkey-button" on:click={onPressIncome}>Зарплата</button>
+    <div>
+        {#each oftentrs as item}
+            <button class="hotkey-button" on:click={() => onPressHotkey(item)}
+                >{item[1]}</button
+            >
+        {/each}
     </div>
 
     <button class="save-button" type="submit">Сохранить</button>
@@ -136,7 +178,7 @@
     }
     input[type="radio"]:checked + td {
         background-color: grey;
-        color:rgb(216, 216, 216);
+        color: rgb(216, 216, 216);
     }
     .main-form {
         max-width: 350px;
@@ -184,6 +226,7 @@
 
     .hotkey-button {
         padding: 0;
+        margin: 2px;
         height: 30px;
         width: 100px;
         font-size: 10px;
@@ -197,6 +240,5 @@
         color: rgb(216, 216, 216);
         font-size: 1em;
         text-align: center;
-}
-
+    }
 </style>
