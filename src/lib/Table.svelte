@@ -1,12 +1,8 @@
 <script>
     import { onMount } from "svelte";
+    import { csvURL } from "../api";
 
     let transactions = [];
-
-    const csvURL = 
-        import.meta.env.DEV
-          ? `http://${window.location.hostname}:5040/bruh.csv`
-          : 'bruh.csv';
 
     onMount(() => {
         fetch(csvURL)

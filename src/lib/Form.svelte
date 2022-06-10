@@ -1,15 +1,12 @@
 <script>
     import SumInput from "./SumInput.svelte";
     import { onMount } from "svelte";
+    import { csvURL } from "../api";
 
     const actionURL = import.meta.env.DEV ? "http://localhost:5040/new" : "new";
 
-    const csvURL = import.meta.env.DEV
-        ? `http://${window.location.hostname}:3000/bruh.csv`
-        : "bruh.csv";
-
     const counts = {};
-    let oftentrs = [];
+    let frequentTrs = [];
 
     onMount(() => {
         fetch(csvURL)
@@ -25,7 +22,7 @@
                 let sortedtrs = Object.entries(counts)
                     .sort(([, a], [, b]) => b - a)
                     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-                oftentrs = Object.keys(sortedtrs)
+                frequentTrs = Object.keys(sortedtrs)
                     .slice(0, 6)
                     .map((i) => i.split(","));
             });
@@ -147,7 +144,7 @@
     <SumInput />
 
     <div>
-        {#each oftentrs as item}
+        {#each frequentTrs as item}
             <button class="hotkey-button" on:click={() => onPressHotkey(item)}
                 >{item[1]}</button
             >
