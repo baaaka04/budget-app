@@ -3,6 +3,7 @@
     import Form from "./lib/Form.svelte";
     import imgHome from "./icons/home.svg";
     import imgPiechart from "./icons/piechart.svg";
+    import PieChart from "./lib/PieChart.svelte";
 
     let page = "home";
 </script>
@@ -12,7 +13,7 @@
         <Table />
         <Form />
     {:else if page === "pie"}
-        <p>Ну типа</p>
+        <PieChart />
     {/if}
 
     <div class="nav-panel">
