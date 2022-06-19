@@ -19,6 +19,8 @@
   "dependencies": {
     "carbon-components": "^10.56.0",
     "cross-env": "^7.0.3",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "express-basic-auth": "^1.2.1",
+    "svelte-navigator": "^3.1.6"
   }
 }
