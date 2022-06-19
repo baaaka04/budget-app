@@ -5,7 +5,12 @@
     let transactions = [];
 
     onMount(() => {
-        fetch(csvURL)
+        fetch(csvURL, {
+            method: "get",
+            headers: {
+                Authorization: `Basic ${localStorage.getItem("user")}`,
+            },
+        })
             .then((res) => res.text())
             .then((csv) => {
                 const trs = csv.trim().split("\n");

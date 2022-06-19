@@ -9,7 +9,12 @@
     let frequentTrs = [];
 
     onMount(() => {
-        fetch(csvURL)
+        fetch(csvURL, {
+            method: "get",
+            headers: {
+                Authorization: `Basic ${localStorage.getItem("user")}`,
+            },
+        })
             .then((res) => res.text())
             .then((csv) => {
                 const trs = csv.trim().split("\n");
@@ -40,6 +45,7 @@
             method: "post",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Basic ${localStorage.getItem("user")}`,
             },
             body: JSON.stringify(data),
         }).then(() => {
@@ -65,6 +71,9 @@
             : "deleteLastRow";
         fetch(actionURL, {
             method: "delete",
+            headers: {
+                Authorization: `Basic ${localStorage.getItem("user")}`,
+            },
         }).then(() => {
             document.location.reload();
         });

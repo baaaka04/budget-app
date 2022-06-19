@@ -4,7 +4,12 @@
     import { groupBy, getJSONfromCSV } from "../utilis";
     import "@carbon/charts/styles.css";
     let csv = [];
-    fetch(csvURL)
+    fetch(csvURL, {
+        method: "get",
+        headers: {
+            Authorization: `Basic ${localStorage.getItem("user")}`,
+        },
+    })
         .then((res) => {
             return res.text();
         })

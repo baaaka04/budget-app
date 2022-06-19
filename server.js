@@ -1,8 +1,22 @@
 import express from 'express'
 import fs from "fs"
+import basicAuth from 'express-basic-auth'
 
 const app = express()
 const port = 50401
+
+
+app.use('/bruh.csv', basicAuth({
+  users: { 'ab': 'what' }
+}))
+
+app.use('/new', basicAuth({
+  users: { 'ab': 'what' }
+}))
+
+app.use('/deleteLastRow', basicAuth({
+  users: { 'ab': 'what' }
+}))
 
 app.use(function (_, res, next) {
   if (process.env.NODE_ENV === 'development') {
@@ -55,7 +69,7 @@ app.use(express.static('dist'))
 
 app.listen(port, '0.0.0.0',
   () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-}
+    console.log(`Example app listening at http://localhost:${port}`)
+  }
 )
 

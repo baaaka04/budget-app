@@ -4,34 +4,30 @@
     import imgHome from "./icons/home.svg";
     import imgPiechart from "./icons/piechart.svg";
     import PieChart from "./lib/PieChart.svelte";
-
-    let page = "home";
+    import { Router, Link, Route } from "svelte-navigator";
+    import AuthWrapper from "./AuthWrapper.svelte";
 </script>
 
 <div>
-    {#if page === "home"}
-        <Table />
-        <Form />
-    {:else if page === "pie"}
-        <PieChart />
-    {/if}
-
-    <div class="nav-panel">
-        <img
-            src={imgHome}
-            alt=""
-            on:click={() => {
-                page = "home";
-            }}
-        />
-        <img
-            src={imgPiechart}
-            alt=""
-            on:click={() => {
-                page = "pie";
-            }}
-        />
-    </div>
+    <AuthWrapper>
+        <Router primary={false}>
+            <div>
+                <Route path="/">
+                    <Table />
+                    <Form />
+                </Route>
+                <Route path="/pie">
+                    <PieChart />
+                </Route>
+            </div>
+            <div class="nav-panel">
+                <nav>
+                    <Link to="/"><img src={imgHome} alt="" /></Link>
+                    <Link to="pie"><img src={imgPiechart} alt="" /></Link>
+                </nav>
+            </div>
+        </Router>
+    </AuthWrapper>
 </div>
 
 <style>
